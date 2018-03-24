@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         progressDialog = new ProgressDialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -57,8 +59,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextPasswordReg = findViewById(R.id.editTextPasswordReg);
         spinnerType = findViewById(R.id.spinnerType);
 
+
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         if(firebaseAuth.getCurrentUser()!= null){
+
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.show();
+
             //profile activity
             //finish();
             //startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
@@ -71,13 +79,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Users users = ds.getValue(Users.class);
                         //arrayListUsers.add(users);
                         if (users.fireUID.equals( FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                            progressDialog.dismiss();
                             switch (users.type){
-                                case "Parent": startActivity(new Intent(getApplicationContext(),ParentActivity.class));
-                                    break;
-                                case "Student": startActivity(new Intent(getApplicationContext(),StudentProfile.class));
-                                    break;
-                                case "Teacher": startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
 
+                                case "Parent":
+                                    startActivity(new Intent(getApplicationContext(),ParentActivity.class));
+                                    finish();
+                                    break;
+
+                                case "Student": startActivity(new Intent(getApplicationContext(),StudentMain.class)
+                                .putExtra("Users", users));
+
+                                 break;
+                                case "Teacher":
+                                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                                    finish();
                             }
                         }
 

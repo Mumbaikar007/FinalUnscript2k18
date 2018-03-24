@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFF"
 
+
     tools:context="com.example.optimus.tezattendance.LoginActivity">
 
     <ImageView
@@ -21,6 +22,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -55,8 +57,10 @@
 
         <Button
             android:id="@+id/buttonSignin"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="20dp"

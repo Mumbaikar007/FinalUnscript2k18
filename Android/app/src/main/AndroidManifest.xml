@@ -29,7 +29,9 @@
         <activity android:name=".RegisterClass" />
         <activity android:name=".AttendanceMiddleware" />
         <activity android:name=".StudentProfile" />
-        <activity android:name=".ParentActivity"></activity>
+        <activity android:name=".ParentActivity" />
+        <activity android:name=".StudentMain" />
+        <activity android:name=".StudentNews"></activity>
     </application>
 
 </manifest>
