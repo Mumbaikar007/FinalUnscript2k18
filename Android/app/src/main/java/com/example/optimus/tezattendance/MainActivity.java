@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             switch (users.type){
                                 case "Parent": startActivity(new Intent(getApplicationContext(),ParentActivity.class));
                                     break;
-                                case "Student": startActivity(new Intent(getApplicationContext(),StudentProfile.class));
+                                case "Student": startActivity(new Intent(getApplicationContext(),StudentProfile.class)
+                                .putExtra("Users", users));
                                     break;
                                 case "Teacher": startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
 

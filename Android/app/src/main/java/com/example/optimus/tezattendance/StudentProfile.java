@@ -3,7 +3,9 @@ package com.example.optimus.tezattendance;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,8 +25,10 @@ public class StudentProfile extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference,subjectRef;
 
+
+    Button buttonGetAttendance;
     ArrayList<String> arrayListSubjects;
-    ArrayList<String> arrayListLectures;
+    ArrayList<Subject> arrayListAttendLectures,arrayListAllLectures;
     ArrayAdapter<String> arrayAdapterSubjects;
 
     @Override
@@ -34,15 +38,17 @@ public class StudentProfile extends AppCompatActivity {
         textViewStudentRoll = findViewById(R.id.textViewStudentRoll);
         listViewAttendance = findViewById(R.id.listViewAttendance);
 
-        Users users = getIntent().getExtras().getParcelable("Users");
+        final Users users = getIntent().getExtras().getParcelable("Users");
 
         arrayListSubjects = new ArrayList<>();
-        arrayListLectures = new ArrayList<>();
+        arrayListAttendLectures = new ArrayList<>();
+        arrayListAllLectures = new ArrayList<>();
 
 
         firebaseAuth= FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         subjectRef = FirebaseDatabase.getInstance().getReference();
+        buttonGetAttendance = findViewById(R.id.buttonGetAttendance);
 
         if(firebaseAuth.getCurrentUser() == null){
             //user is not logged in
@@ -56,13 +62,12 @@ public class StudentProfile extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for ( DataSnapshot ds: dataSnapshot.getChildren()){
                     Subject subject = ds.getValue(Subject.class);
-                    arrayListSubjects.add(subject.subjectName);
-                    arrayListLectures.add(subject.lectures);
+                    arrayListAttendLectures.add(subject);
+
 
                 }
 
-                arrayAdapterSubjects = new ArrayAdapter<String>(StudentProfile.this, android.R.layout.simple_expandable_list_item_1, arrayListSubjects);
-                listViewAttendance.setAdapter(arrayAdapterSubjects);
+
             }
 
 
@@ -72,5 +77,45 @@ public class StudentProfile extends AppCompatActivity {
             }
         });
 
+        subjectRef.child(users.className).child("Subjects").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for ( DataSnapshot ds: dataSnapshot.getChildren()){
+                    Subject subject = ds.getValue(Subject.class);
+                    arrayListAllLectures.add(subject);
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        buttonGetAttendance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculateAttendance();
+
+            }
+        });
+
+
     }
+
+    private void calculateAttendance() {
+        for(int i=0;i<arrayListAttendLectures.size();i++){
+            Double currentAttendance = Double.parseDouble(arrayListAttendLectures.get(i).lectures) * 100
+                                        /Double.parseDouble(arrayListAllLectures.get(i).lectures);
+
+            arrayListSubjects.add(arrayListAllLectures.get(i).subjectName + ": " +
+                                        Double.toString(currentAttendance));
+        }
+        arrayAdapterSubjects = new ArrayAdapter<String>(StudentProfile.this, android.R.layout.simple_expandable_list_item_1, arrayListSubjects);
+        listViewAttendance.setAdapter(arrayAdapterSubjects);
+    }
+
+
 }
