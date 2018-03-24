@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         progressDialog = new ProgressDialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextClassNameReg = findViewById(R.id.editTextClassNameReg);
         editTextPasswordReg = findViewById(R.id.editTextPasswordReg);
         spinnerType = findViewById(R.id.spinnerType);
+
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         if(firebaseAuth.getCurrentUser()!= null){
@@ -77,12 +81,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (users.fireUID.equals( FirebaseAuth.getInstance().getCurrentUser().getUid())){
                             progressDialog.dismiss();
                             switch (users.type){
-                                case "Parent": startActivity(new Intent(getApplicationContext(),ParentActivity.class));
-                                    break;
-                                case "Student": startActivity(new Intent(getApplicationContext(),StudentProfile.class));
-                                    break;
-                                case "Teacher": startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
 
+                                case "Parent":
+                                    startActivity(new Intent(getApplicationContext(),ParentActivity.class));
+                                    finish();
+                                    break;
+                                case "Student":
+                                    startActivity(new Intent(getApplicationContext(),StudentProfile.class));
+                                    finish();
+                                    break;
+                                case "Teacher":
+                                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                                    finish();
                             }
                         }
 
