@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TezAttendance</string>
+
+    <array name="tpye">
+        <item>Select Type</item>
+        <item>Parent</item>
+        <item>Student</item>
+        <item>Teacher</item>
+    </array>
+
+</resources>
