@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     finish();
                                     break;
 
-                                case "Student": startActivity(new Intent(getApplicationContext(),StudentProfile.class)
+                                case "Student": startActivity(new Intent(getApplicationContext(),StudentMain.class)
                                 .putExtra("Users", users));
 
                                  break;
