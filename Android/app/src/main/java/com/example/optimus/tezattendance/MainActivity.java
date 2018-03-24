@@ -86,10 +86,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     startActivity(new Intent(getApplicationContext(),ParentActivity.class));
                                     finish();
                                     break;
-                                case "Student":
-                                    startActivity(new Intent(getApplicationContext(),StudentProfile.class));
-                                    finish();
-                                    break;
+
+                                case "Student": startActivity(new Intent(getApplicationContext(),StudentProfile.class)
+                                .putExtra("Users", users));
+
+                                 break;
                                 case "Teacher":
                                     startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
                                     finish();
