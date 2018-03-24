@@ -31,7 +31,8 @@
         <activity android:name=".StudentProfile" />
         <activity android:name=".ParentActivity" />
         <activity android:name=".StudentMain" />
-        <activity android:name=".StudentNews"></activity>
+        <activity android:name=".StudentNews" />
+        <activity android:name=".TeacherAddNews"></activity>
     </application>
 
 </manifest>
