@@ -59,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         if(firebaseAuth.getCurrentUser()!= null){
+
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.show();
+
             //profile activity
             //finish();
             //startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Users users = ds.getValue(Users.class);
                         //arrayListUsers.add(users);
                         if (users.fireUID.equals( FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                            progressDialog.dismiss();
                             switch (users.type){
                                 case "Parent": startActivity(new Intent(getApplicationContext(),ParentActivity.class));
                                     break;

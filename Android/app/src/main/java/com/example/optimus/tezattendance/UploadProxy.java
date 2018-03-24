@@ -23,6 +23,9 @@ public class UploadProxy extends AppCompatActivity {
     TextView textViewCurrrent;
 
     String className, rollNumber, subjectName, newAttendance;
+    String key;
+    Subject subjectToUpdate;
+
 
     private FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
@@ -66,11 +69,21 @@ public class UploadProxy extends AppCompatActivity {
             }
         });
 
+        buttonUpdateAttendance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                subjectToUpdate.lectures = editTextUpdateAttendance.getText().toString();
+                databaseReference.child(className).child("Students")
+                        .child(rollNumber).child("Subjects").child(key).setValue(subjectToUpdate);
+            }
+        });
+
 
     }
 
 
-    void QueryClassStudentAttendance(String classNamee, String rollNumberr, String subjectNamee) {
+    void QueryClassStudentAttendance(String classNamee, String rollNumberr, final String subjectNamee) {
 
         databaseReference.child(classNamee).child("Students")
                 .child(rollNumberr).child("Subjects")
@@ -81,10 +94,14 @@ public class UploadProxy extends AppCompatActivity {
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                             Subject subject = ds.getValue(Subject.class);
-                            //arrayListUID.add(ds.getKey());
-                            //arrayListSubjects.add(subject);
+                            if ( subject.subjectName.equals(subjectNamee) ){
+                                key = ds.getKey();
+                                subjectToUpdate = subject;
+                                textViewCurrrent.setText("Current Attendance: " + subject.lectures)     ;
+                            }
 
                         }
+
                     }
 
                     @Override
