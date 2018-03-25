@@ -1,21 +1,19 @@
 package com.example.optimus.tezattendance;
 
-import android.app.ProgressDialog;
+
 import android.content.Intent;
 import android.net.Uri;
-import android.preference.PreferenceManager;
+
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.EventLogTags;
-import android.view.MenuItem;
-import android.support.v7.widget.Toolbar;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,9 +28,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+
 public class TeacherAddNews extends AppCompatActivity {
      EditText newsName , newsType ,newsDesc;
-     private String newsdesc;
+     private String newsdesc,newsname,newstype;
     private ImageButton newsImage;
     private Button addNews;
     private FirebaseAuth firebaseAuth;
@@ -40,7 +40,8 @@ public class TeacherAddNews extends AppCompatActivity {
     private static final int Gallery_Pick= 1;
     private StorageReference newsImagesRef;
     private Uri Imageuri;
-    private String downloadUrl;
+    private String downloadUrl,current_user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class TeacherAddNews extends AppCompatActivity {
         newsRef = FirebaseDatabase.getInstance().getReference().child("news");
         newsImagesRef = FirebaseStorage.getInstance().getReference();
         newsImage = findViewById(R.id.newsImage);
+        current_user = firebaseAuth.getCurrentUser().toString();
 
         if(firebaseAuth.getCurrentUser() == null){
             //user is not logged in
@@ -79,6 +81,9 @@ public class TeacherAddNews extends AppCompatActivity {
 
         private void ValidatePostInfo() {
             newsdesc = newsDesc.getText().toString();
+            newsname = newsName.getText().toString();
+            newstype = newsType.getText().toString();
+
             if(Imageuri==null){
                 Toast.makeText(this, "Please Select One Image...", Toast.LENGTH_SHORT).show();
             }
@@ -116,7 +121,37 @@ public class TeacherAddNews extends AppCompatActivity {
     }
 
     private void SavingPostInformationToDatabase() {
+        databaseReference.child(current_user).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    HashMap newsMap = new HashMap();
+                    newsMap.put("description",newsdesc);
+                    newsMap.put("name",newsname);
+                    newsMap.put("type",newstype);
+                    newsMap.put("newsImage",downloadUrl);
+                    newsRef.child(current_user+"newsxyz").updateChildren(newsMap)
+                            .addOnCompleteListener(new OnCompleteListener() {
+                                @Override
+                                public void onComplete(@NonNull Task task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(TeacherAddNews.this, "Post Update Successfully..", Toast.LENGTH_SHORT).show();
 
+                                    }
+                                    else{
+                                        Toast.makeText(TeacherAddNews.this, "Error in Uploading post try again..", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void OpenGallery() {
