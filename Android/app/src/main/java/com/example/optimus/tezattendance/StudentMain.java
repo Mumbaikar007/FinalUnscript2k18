@@ -32,8 +32,7 @@ public class StudentMain extends AppCompatActivity {
         linearLayoutAttendance.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),StudentProfile.class)
-                        .putExtra("Users", users));
+                startActivity(new Intent(getApplicationContext(),HorizontalBarChartActivity.class));
             }
         });
 

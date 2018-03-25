@@ -25,6 +25,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private FirebaseAuth firebaseAuth;
     private Button buttonLogout;
+    Button buttonChat, buttonAddNews;
+
 
     private LinearLayout buttonRegisterStudent, buttonEmptyDatabase;
     private LinearLayout buttonTakeAttendance, buttonUploadProxy;
@@ -58,7 +60,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonRegisterStudent = findViewById(R.id.linearLayoutRegister);
         buttonTakeAttendance = findViewById(R.id.linearLayoutTakeAttendance);
         buttonUploadProxy = findViewById( R.id.linearLayoutUpdate);
-
+        buttonChat = findViewById(R.id.buttonChat);
+        buttonAddNews = findViewById(R.id.buttonAddNews);
 
         if(firebaseAuth.getCurrentUser() == null){
             //user is not logged in
@@ -78,6 +81,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonRegisterStudent.setOnClickListener(this);
         buttonTakeAttendance.setOnClickListener(this);
         buttonUploadProxy.setOnClickListener(this);
+        buttonAddNews.setOnClickListener(this);
+        buttonChat.setOnClickListener(this);
 
     }
 
@@ -223,6 +228,19 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         if ( view == buttonUploadProxy){
 
             startActivity(new Intent(this,UploadProxy.class));
+        }
+
+        if ( view == buttonChat ){
+            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.example.adarsh.uchat");
+            if (launchIntent != null) {
+                startActivity(launchIntent);//null pointer check in case package name was not found
+            }
+        }
+
+        if ( view == buttonAddNews){
+
+            Intent addNews = new Intent(ProfileActivity.this,TeacherAddNews.class);
+            startActivity(addNews);
         }
 
     }
