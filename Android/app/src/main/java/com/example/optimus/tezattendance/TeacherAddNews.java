@@ -32,7 +32,7 @@ import java.util.HashMap;
 
 public class TeacherAddNews extends AppCompatActivity {
      EditText newsName , newsType ,newsDesc;
-     private String newsdesc;
+     private String newsdesc,newsname,newstype;
     private ImageButton newsImage;
     private Button addNews;
     private FirebaseAuth firebaseAuth;
@@ -81,6 +81,9 @@ public class TeacherAddNews extends AppCompatActivity {
 
         private void ValidatePostInfo() {
             newsdesc = newsDesc.getText().toString();
+            newsname = newsName.getText().toString();
+            newstype = newsType.getText().toString();
+
             if(Imageuri==null){
                 Toast.makeText(this, "Please Select One Image...", Toast.LENGTH_SHORT).show();
             }
@@ -123,9 +126,9 @@ public class TeacherAddNews extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     HashMap newsMap = new HashMap();
-                    newsMap.put("description",);
-                    newsMap.put("name",);
-                    newsMap.put("type",);
+                    newsMap.put("description",newsdesc);
+                    newsMap.put("name",newsname);
+                    newsMap.put("type",newstype);
                     newsMap.put("newsImage",downloadUrl);
                     newsRef.child(current_user+"newsxyz").updateChildren(newsMap)
                             .addOnCompleteListener(new OnCompleteListener() {
