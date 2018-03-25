@@ -279,6 +279,8 @@
 
     <Button
         android:id="@+id/buttonChat"
+        android:background="@drawable/register_button"
+        android:textColor="@color/backgroundcolor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -295,6 +297,8 @@
 
     <Button
         android:id="@+id/buttonAddNews"
+        android:background="@drawable/register_button"
+        android:textColor="@color/backgroundcolor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

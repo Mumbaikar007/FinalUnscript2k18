@@ -9,7 +9,8 @@
 
     <Button
         android:id="@+id/buttonEmptyFingerDatabase"
-        android:layout_width="wrap_content"
+        android:background="@drawable/register_button"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -38,6 +39,7 @@
 
     <EditText
         android:id="@+id/editTextClassNameToDelete"
+        android:background="@drawable/edittextstyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="148dp"
