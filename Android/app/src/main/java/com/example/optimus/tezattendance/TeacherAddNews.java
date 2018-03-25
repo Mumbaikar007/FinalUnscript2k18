@@ -33,7 +33,7 @@ import com.google.firebase.storage.UploadTask;
 public class TeacherAddNews extends AppCompatActivity {
      EditText newsName , newsType ,newsDesc;
      private String newsdesc;
-    private ImageView newsImage;
+    private ImageButton newsImage;
     private Button addNews;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference,newsRef;
@@ -55,7 +55,7 @@ public class TeacherAddNews extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         newsRef = FirebaseDatabase.getInstance().getReference().child("news");
         newsImagesRef = FirebaseStorage.getInstance().getReference();
-
+        newsImage = findViewById(R.id.newsImage);
 
         if(firebaseAuth.getCurrentUser() == null){
             //user is not logged in

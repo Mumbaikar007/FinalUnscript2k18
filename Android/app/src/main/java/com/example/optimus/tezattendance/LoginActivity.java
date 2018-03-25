@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             finish();
             //startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
         }
-
+        arrayListUsers = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
