@@ -9,6 +9,7 @@
 
     <EditText
         android:id="@+id/editTextClassNameScan"
+        android:background="@drawable/edittextstyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -26,6 +27,7 @@
 
     <EditText
         android:id="@+id/editTextSubjectNameScan"
+        android:background="@drawable/edittextstyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="88dp"
@@ -41,12 +43,14 @@
 
     <Button
         android:id="@+id/buttonStartScanning"
-        android:layout_width="wrap_content"
+        android:background="@drawable/register_button"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="36dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Start Scanning"
+        android:textColor="@color/backgroundcolor"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddAttendance"
         app:layout_constraintEnd_toEndOf="@+id/editTextSubjectNameScan"
         app:layout_constraintHorizontal_bias="0.491"
@@ -54,12 +58,14 @@
 
     <Button
         android:id="@+id/buttonAddAttendance"
+        android:background="@drawable/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Start"
+        android:textColor="@color/backgroundcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/buttonStartScanning"
         app:layout_constraintStart_toStartOf="@+id/buttonStartScanning" />

@@ -11,37 +11,47 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="25dp"
+        android:layout_alignParentTop="true"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/select_image" />
     <EditText
+        android:background="@drawable/edittextstyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Description"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/newsImage"
         android:id="@+id/newsDesc"/>
+
     <EditText
+        android:id="@+id/newsName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/newsDesc"
         android:layout_marginTop="10dp"
-        android:hint="Enter Name.."
-        android:id="@+id/newsName"/>
+        android:background="@drawable/edittextstyle"
+        android:hint="Enter Name.." />
     <EditText
+        android:background="@drawable/edittextstyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/newsName"
         android:hint="Type"
         android:layout_marginTop="10dp"
         android:id="@+id/newsType"/>
+
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/addNews"
-        android:hint="AddNews"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/newsType"/>
+        android:textColor="#FFF"
+        android:layout_marginBottom="5dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/register_button"
+        android:gravity="center"
+        android:text="AddNews" />
 
 
 
