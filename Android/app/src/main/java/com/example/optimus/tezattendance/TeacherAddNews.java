@@ -57,7 +57,7 @@ public class TeacherAddNews extends AppCompatActivity {
         newsRef = FirebaseDatabase.getInstance().getReference().child("news");
         newsImagesRef = FirebaseStorage.getInstance().getReference();
         newsImage = findViewById(R.id.newsImage);
-        current_user = firebaseAuth.getCurrentUser().toString();
+        current_user = firebaseAuth.getCurrentUser().getUid().toString();
 
         if(firebaseAuth.getCurrentUser() == null){
             //user is not logged in
@@ -121,37 +121,27 @@ public class TeacherAddNews extends AppCompatActivity {
     }
 
     private void SavingPostInformationToDatabase() {
-        databaseReference.child(current_user).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    HashMap newsMap = new HashMap();
-                    newsMap.put("description",newsdesc);
-                    newsMap.put("name",newsname);
-                    newsMap.put("type",newstype);
-                    newsMap.put("newsImage",downloadUrl);
-                    newsRef.child(current_user+"newsxyz").updateChildren(newsMap)
-                            .addOnCompleteListener(new OnCompleteListener() {
-                                @Override
-                                public void onComplete(@NonNull Task task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(TeacherAddNews.this, "Post Update Successfully..", Toast.LENGTH_SHORT).show();
 
-                                    }
-                                    else{
-                                        Toast.makeText(TeacherAddNews.this, "Error in Uploading post try again..", Toast.LENGTH_SHORT).show();
+        HashMap newsMap = new HashMap();
+        newsMap.put("description",newsdesc);
+        newsMap.put("name",newsname);
+        newsMap.put("type",newstype);
+        newsMap.put("newsImage",downloadUrl);
+        newsRef.child(current_user+"newsxyz").updateChildren(newsMap)
+                .addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(TeacherAddNews.this, "Post Update Successfully..", Toast.LENGTH_SHORT).show();
 
-                                    }
-                                }
-                            });
-                }
-            }
+                        }
+                        else{
+                            Toast.makeText(TeacherAddNews.this, "Error in Uploading post try again..", Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                        }
+                    }
+                });
 
-            }
-        });
     }
 
     private void OpenGallery() {
