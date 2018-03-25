@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.optimus.tezattendance.TeacherAddNews">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/newsImage"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/select_image" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/newsImage"
+        android:id="@+id/newsDesc"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newsDesc"
+        android:layout_marginTop="10dp"
+        android:hint="Enter Name.."
+        android:id="@+id/newsName"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newsName"
+        android:hint="Type"
+        android:layout_marginTop="10dp"
+        android:id="@+id/newsType"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addNews"
+        android:hint="AddNews"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/newsType"/>
+
+
+
+</RelativeLayout>
