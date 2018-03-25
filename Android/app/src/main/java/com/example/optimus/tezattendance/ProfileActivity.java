@@ -231,10 +231,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         if ( view == buttonChat ){
-
+            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.example.adarsh.uchat");
+            if (launchIntent != null) {
+                startActivity(launchIntent);//null pointer check in case package name was not found
+            }
         }
 
         if ( view == buttonAddNews){
+
             Intent addNews = new Intent(ProfileActivity.this,TeacherAddNews.class);
             startActivity(addNews);
         }
