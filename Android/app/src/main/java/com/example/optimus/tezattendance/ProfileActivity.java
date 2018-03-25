@@ -235,7 +235,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         if ( view == buttonAddNews){
-
+            Intent addNews = new Intent(ProfileActivity.this,TeacherAddNews.class);
+            startActivity(addNews);
         }
 
     }

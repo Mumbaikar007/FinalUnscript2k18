@@ -42,15 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         progressDialog = new ProgressDialog(this);
-        firebaseAuth = FirebaseAuth.getInstance();
 
-        if(firebaseAuth.getCurrentUser()!= null){
-            //profile activity
-            finish();
-            //startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
-        }
-
-            databaseReference = FirebaseDatabase.getInstance().getReference();
 
         editTextEmail= (EditText) findViewById(R.id.editTextEmail);
         editTextPassword= (EditText) findViewById(R.id.editTextPassword);
@@ -60,22 +52,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonSignin.setOnClickListener(this);
         textViewSignup.setOnClickListener(this);
 
-        databaseReference.child("users").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for ( DataSnapshot ds : dataSnapshot.getChildren()){
-                    Users users = ds.getValue(Users.class);
-                    arrayListUsers.add(users);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
     }
 
@@ -105,18 +81,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if(task.isSuccessful()){
 
-                    for ( Users users : arrayListUsers){
-                        if (users.fireUID.equals( FirebaseAuth.getInstance().getCurrentUser().getUid())){
-                            switch (users.type){
-                                case "Parent": startActivity(new Intent(getApplicationContext(),ParentActivity.class));
-                                                break;
-                                case "Student": startActivity(new Intent(getApplicationContext(),StudentProfile.class));
-                                                break;
-                                case "Teacher": startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
 
+                    databaseReference = FirebaseDatabase.getInstance().getReference();
+
+                    databaseReference.child("users").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            for ( DataSnapshot ds : dataSnapshot.getChildren()){
+                                Users users = ds.getValue(Users.class);
+                                arrayListUsers.add(users);
                             }
+
+                            for ( Users users : arrayListUsers){
+                                if (users.fireUID.equals( FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                                    switch (users.type){
+                                        case "Parent": startActivity(new Intent(getApplicationContext(),ParentActivity.class));
+                                            break;
+                                        case "Student": startActivity(new Intent(getApplicationContext(),StudentProfile.class));
+                                            break;
+                                        case "Teacher": startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+
+                                    }
+                                }
+                            }
+
                         }
-                    }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
 
                     //startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
                 }
